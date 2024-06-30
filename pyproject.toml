@@ -9,6 +9,9 @@ readme = "README.md"
 python = "^3.10"
 fastapi = "^0.111.0"
 sqlalchemy = "^2.0.31"
+pydantic-settings = "^2.3.4"
+alembic = "^1.13.2"
+asyncpg = "^0.29.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"
@@ -40,6 +43,8 @@ run = 'fastapi dev api/app.py'
 pre_test = 'task lint'
 test = 'pytest -s -x --cov=fast_zero -vv'
 post_test = 'coverage html'
+revision_alembic = 'alembic revision --autogenerate'
+upgrade_alembic = 'alembic upgrade head'
 
 [build-system]
 requires = ["poetry-core"]
