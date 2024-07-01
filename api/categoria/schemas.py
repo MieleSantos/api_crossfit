@@ -1,10 +1,11 @@
 from typing import Annotated
 
-from api.contrib.schemas import BaseSchema
 from pydantic import Field
+
+from api.contrib.schemas import BaseSchema
 
 
 class Categoria(BaseSchema):
     nome: Annotated[
-        str, Field(description="Nome da Categoria", example="Scale", max_length=10)
+        str, Field(description='Nome da Categoria', example='Scale', max_length=10)
     ]
