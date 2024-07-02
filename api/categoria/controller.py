@@ -1,11 +1,44 @@
 from uuid import uuid4
-from fastapi import APIRouter, Body, status
+from fastapi import APIRouter, Body, status, HTTPException
 from api.categoria.schemas import CategoriaIn, CategoriaOut
 from api.categoria.models import CategoriaModel
-
+from sqlalchemy.future import select
 from api.contrib.dependencies import data_base_dependecy
+from pydantic import UUID4
 
 router = APIRouter()
+
+
+@router.get(
+    "/",
+    summary="Consultar todas as Categorias",
+    status_code=status.HTTP_200_OK,
+    response_model=list[CategoriaOut],
+)
+async def get_categoria(db_sesseion: data_base_dependecy) -> list[CategoriaOut]:
+    categorias: list[CategoriaOut] = (
+        (await db_sesseion.execute(select(CategoriaModel))).scalars().all()
+    )
+    return categorias
+
+
+@router.get(
+    "/{id}",
+    summary="Consultar uma Categoria pelo Id",
+    status_code=status.HTTP_200_OK,
+    response_model=CategoriaOut,
+)
+async def get_categoria(id: UUID4, db_sesseion: data_base_dependecy) -> CategoriaOut:
+    categoria: CategoriaOut = (
+        (await db_sesseion.execute(select(CategoriaModel).filter_by(id=id)))
+        .scalars()
+        .first()
+    )
+    if not categoria:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Categoria não encontrada!"
+        )
+    return categoria
 
 
 @router.post(
