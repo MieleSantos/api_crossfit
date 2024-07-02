@@ -7,8 +7,8 @@ router = APIRouter()
 
 
 @router.post(
-    '/',
-    summary='Criar novo atleta',
+    "/",
+    summary="Criar novo atleta",
     status_code=status.HTTP_201_CREATED,
     response_model=AtletaOut,
 )
