@@ -1,12 +1,14 @@
 from uuid import uuid4
-from fastapi import APIRouter, Body, status, HTTPException
-from sqlalchemy.future import select
+
+from fastapi import APIRouter, Body, HTTPException, status
 from pydantic import UUID4
+from sqlalchemy.future import select
+
+from api.centro_treinamento.models import CentroTreinamentoModel
 from api.centro_treinamento.schemas import (
     CentroTreinamentoIn,
     CentroTreinamentoOut,
 )
-from api.centro_treinamento.models import CentroTreinamentoModel
 from api.contrib.dependencies import data_base_dependecy
 
 router = APIRouter()
@@ -64,7 +66,6 @@ async def create_centro(
         db_session.add(centro_treino_model)
         await db_session.commit()
     except Exception as e:
-
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(e),

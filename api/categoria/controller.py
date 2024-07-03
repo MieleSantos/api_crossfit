@@ -1,10 +1,12 @@
 from uuid import uuid4
-from fastapi import APIRouter, Body, status, HTTPException
-from api.categoria.schemas import CategoriaIn, CategoriaOut
-from api.categoria.models import CategoriaModel
-from sqlalchemy.future import select
-from api.contrib.dependencies import data_base_dependecy
+
+from fastapi import APIRouter, Body, HTTPException, status
 from pydantic import UUID4
+from sqlalchemy.future import select
+
+from api.categoria.models import CategoriaModel
+from api.categoria.schemas import CategoriaIn, CategoriaOut
+from api.contrib.dependencies import data_base_dependecy
 
 router = APIRouter()
 

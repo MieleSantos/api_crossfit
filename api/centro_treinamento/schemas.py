@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from pydantic import Field, UUID4
+from pydantic import UUID4, Field
 
 from api.contrib.schemas import BaseSchema
 
