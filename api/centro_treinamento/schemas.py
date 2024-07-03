@@ -1,16 +1,16 @@
 from typing import Annotated
 
-from pydantic import Field
+from pydantic import Field, UUID4
 
 from api.contrib.schemas import BaseSchema
 
 
-class CentroTreinamento(BaseSchema):
+class CentroTreinamentoIn(BaseSchema):
     nome: Annotated[
         str,
         Field(
-            description='Nome do centro de treinamento',
-            example='Ct King',
+            description="Nome do centro de treinamento",
+            example="Ct King",
             max_length=20,
         ),
     ]
@@ -18,14 +18,29 @@ class CentroTreinamento(BaseSchema):
     endereco: Annotated[
         str,
         Field(
-            description='Endereco do centro de treinamento',
-            example='rua do teste',
+            description="Endereco do centro de treinamento",
+            example="rua do teste",
             max_length=60,
         ),
     ]
     proprietario: Annotated[
         str,
         Field(
-            description='Dono do centro de treinamento', example='Joao', max_digits=60
+            description="Dono do centro de treinamento", example="Joao", max_length=60
         ),
     ]
+
+
+class CentroTreinamentoAtleta(BaseSchema):
+    nome: Annotated[
+        str,
+        Field(
+            description="Nome do centro de treinamento",
+            example="Ct King",
+            max_length=20,
+        ),
+    ]
+
+
+class CentroTreinamentoOut(CentroTreinamentoIn):
+    id: Annotated[UUID4, Field(description="Identificador da categoria")]
